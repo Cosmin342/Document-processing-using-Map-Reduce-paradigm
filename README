@@ -1,0 +1,28 @@
+Radu Cosmin 333 CB
+
+Tema 2 APD - Procesarea de documente folosind paradigma Map-Reduce
+
+Pentru inceput am creat doi executori cu numarul de workeri dati ca parametru,
+unul pentru etapa Map si unul pentru etapa Reduce. Apoi am citit din fisierul
+dat ca parametru numarul de documente de procesat, numele acestora si cat de
+mare va fi un fragment de procesat dintr-un document. Tot aici, pentru fiecare
+document, verificam dimensiunea acestuia si il imparteam in task-uri de tip
+MapTask, ce primeau numele fisierului, offset-ul si dimensiunea fragmentului
+de procesat.
+
+Un MapTask verifica intai daca actualul fragment incepe in mijlocului unui
+cuvant, prin citirea ultimului caracter al fragmentului anterior si al primului
+din actualul, verificand daca ambele sunt litere. Apoi citeam fragmentul de
+prelucrat si verificam daca acesta se termina in mijlocul unui cuvant,
+asemanator cu verificarea de inceput. Mai apoi ajustam fragmentul in functie
+daca se termina/incepea cu o bucata dintr-un cuvant si formam un dictionar
+ce retinea cate cuvinte exista de o lungime in fragmentul actual, cat si o
+lista de cuvinte ce aveau lungimea maxima. La final, adaugam rezultatele
+obtinute in doua liste statice din clasa Tema2.
+
+Pentru Reduce am creat un numar de ReduceTask-uri egal cu numarul de documente,
+ce primeau rezultatele de la Map pentru documentul respectiv. Un ReduceTask
+uneste dictionarele intr-unul singur ce contorizeaza numarul de aparitii a
+unor cuvinte de o anumita dimensiune. Apoi va calcula rangul dupa formula din
+enunt si numarul de cuvinte de lungime maxima. In final, va intoarce rezultatul
+sub forma unui string ce urmeaza a fi afisat.
